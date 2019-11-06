@@ -6,6 +6,12 @@ const state = {
   alt: false,
   capsLock: false,
 };
+
+const stateLocalStorage = JSON.parse(localStorage.getItem('myKey'));
+if (stateLocalStorage.language) {
+  state.language = stateLocalStorage.language;
+}
+
 const arrLiteralObject = [
   {
     keyWhich: 192,
@@ -212,6 +218,7 @@ document.body.addEventListener('keydown', (event) => {
     state.upperCase = (state.upperCase + 1) % 2;
     if (state.alt === true) {
       state.language = (state.language + 1) % 2;
+      localStorage.setItem('myKey', JSON.stringify(state));
       const arrLiteral = Array.from(document.getElementsByClassName('literal'));
       arrLiteral.forEach((e, i) => {
         e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
