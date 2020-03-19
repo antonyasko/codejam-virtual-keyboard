@@ -7,8 +7,9 @@ const state = {
   capsLock: false,
 };
 
-const stateLocalStorage = JSON.parse(localStorage.getItem('myKey'));
-if (stateLocalStorage.language) {
+let stateLocalStorage = { ...state };
+if (localStorage.getItem('virtualKeyboard')) {
+  stateLocalStorage = JSON.parse(localStorage.getItem('virtualKeyboard'));
   state.language = stateLocalStorage.language;
 }
 
@@ -212,24 +213,27 @@ document.body.addEventListener('keydown', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
-  if (elem.id === 'id_16' || elem.id === 'id_16_right') {
-    state.shift = true;
-    state.upperCase = (state.upperCase + 1) % 2;
-    if (state.alt === true) {
-      state.language = (state.language + 1) % 2;
-      localStorage.setItem('myKey', JSON.stringify(state));
+  let elem;
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if ((elem && elem.id && elem.id === 'id_16') || (elem.id === 'id_16_right' && elem.id && elem)) {
+      state.shift = true;
+      state.upperCase = (state.upperCase + 1) % 2;
+      if (state.alt === true) {
+        state.language = (state.language + 1) % 2;
+        localStorage.setItem('virtualKeyboard', JSON.stringify(state));
+        const arrLiteral = Array.from(document.getElementsByClassName('literal'));
+        arrLiteral.forEach((e, i) => {
+          e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+          e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+        });
+      }
       const arrLiteral = Array.from(document.getElementsByClassName('literal'));
       arrLiteral.forEach((e, i) => {
         e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
         e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
       });
     }
-    const arrLiteral = Array.from(document.getElementsByClassName('literal'));
-    arrLiteral.forEach((e, i) => {
-      e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-      e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-    });
   }
 });
 
@@ -242,15 +246,18 @@ document.body.addEventListener('keyup', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
-  if (elem.id === 'id_16' || elem.id === 'id_16_right') {
-    state.shift = false;
-    state.upperCase = (state.upperCase + 1) % 2;
-    const arrLiteral = Array.from(document.getElementsByClassName('literal'));
-    arrLiteral.forEach((e, i) => {
-      e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-      e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-    });
+  let elem;
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if ((elem.id === 'id_16' && elem.id && elem) || (elem.id === 'id_16_right' && elem.id && elem)) {
+      state.shift = false;
+      state.upperCase = (state.upperCase + 1) % 2;
+      const arrLiteral = Array.from(document.getElementsByClassName('literal'));
+      arrLiteral.forEach((e, i) => {
+        e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+        e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+      });
+    }
   }
 });
 
@@ -263,16 +270,19 @@ document.body.addEventListener('keydown', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
-  if (elem.id === 'id_18' || elem.id === 'id_18_right') {
-    state.alt = true;
-    if (state.shift === true) {
-      state.language = (state.language + 1) % 2;
-      const arrLiteral = Array.from(document.getElementsByClassName('literal'));
-      arrLiteral.forEach((e, i) => {
-        e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-        e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-      });
+  let elem;
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if ((elem.id === 'id_18' && elem.id && elem) || (elem.id === 'id_18_right' && elem.id && elem)) {
+      state.alt = true;
+      if (state.shift === true) {
+        state.language = (state.language + 1) % 2;
+        const arrLiteral = Array.from(document.getElementsByClassName('literal'));
+        arrLiteral.forEach((e, i) => {
+          e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+          e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+        });
+      }
     }
   }
 });
@@ -286,9 +296,12 @@ document.body.addEventListener('keyup', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
-  if (elem.id === 'id_18' || elem.id === 'id_18_right') {
-    state.alt = false;
+  let elem;
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if ((elem.id === 'id_18' && elem.id && elem) || (elem.id === 'id_18_right' && elem.id && elem)) {
+      state.alt = false;
+    }
   }
 });
 
@@ -325,13 +338,16 @@ document.body.addEventListener('keydown', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
+  let elem;
   function animationDown() {
     elem.style.backgroundColor = 'rgb(0, 191, 255)';
     elem.style.borderRadius = '50%';
   }
-  if (elem.id === idNum) {
-    setTimeout(animationDown, 150);
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if (elem.id === idNum && elem.id && elem && idNum) {
+      setTimeout(animationDown, 150);
+    }
   }
 });
 
@@ -355,13 +371,16 @@ document.body.addEventListener('keyup', (event) => {
   } else if (location === 2) {
     idNum = `id_${key}_right`;
   }
-  const elem = document.getElementById(idNum);
+  let elem;
   function animationUp() {
     elem.style.backgroundColor = 'lightslategrey';
     elem.style.borderRadius = '10%';
   }
-  if (elem.id === idNum) {
-    setTimeout(animationUp, 250);
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if (elem.id === idNum && elem.id && elem && idNum) {
+      setTimeout(animationUp, 250);
+    }
   }
 });
 
@@ -369,8 +388,10 @@ divKeyboard.addEventListener('mousedown', (event) => {
   const idElem = event.target.id;
   let button;
   function animationMouseDown() {
-    button.style.backgroundColor = 'rgb(0, 191, 255)';
-    button.style.borderRadius = '50%';
+    if (button && button.style) {
+      button.style.backgroundColor = 'rgb(0, 191, 255)';
+      button.style.borderRadius = '50%';
+    }
   }
   if (event.target.classList.contains('literal')) {
     button = event.target;
@@ -385,8 +406,10 @@ divKeyboard.addEventListener('mouseup', (event) => {
   const idElem = event.target.id;
   let button;
   function animationMouseUp() {
-    button.style.backgroundColor = 'lightslategrey';
-    button.style.borderRadius = '10%';
+    if (button && button.style) {
+      button.style.backgroundColor = 'lightslategrey';
+      button.style.borderRadius = '10%';
+    }
   }
   if (event.target.classList.contains('literal')) {
     button = event.target;
@@ -398,14 +421,19 @@ divKeyboard.addEventListener('mouseup', (event) => {
 });
 
 divKeyboard.addEventListener('mouseover', (event) => {
-  const idElem = event.target.id;
+  let idElem;
+  if (event.target.id !== null) {
+    idElem = event.target.id;
+  }
   let button;
   if (event.target.classList.contains('literal')) {
     button = event.target;
     button.style.backgroundColor = 'rgb(55, 55, 55)';
-  } else if (!event.target.classList.contains('literal')) {
+  } else if (!event.target.classList.contains('literal') && event.target.style !== null) {
     button = document.getElementById(idElem);
-    button.style.backgroundColor = 'rgb(55, 55, 55)';
+    if (button !== null) {
+      button.style.backgroundColor = 'rgb(55, 55, 55)';
+    }
   }
 });
 
@@ -417,7 +445,9 @@ divKeyboard.addEventListener('mouseout', (event) => {
     button.style.backgroundColor = 'lightslategrey';
   } else if (!event.target.classList.contains('literal')) {
     button = document.getElementById(idElem);
-    button.style.backgroundColor = 'lightslategrey';
+    if (button !== null) {
+      button.style.backgroundColor = 'lightslategrey';
+    }
   }
 });
 
@@ -430,17 +460,22 @@ divKeyboard.addEventListener('click', (event) => {
     const currentValue = textArea.value;
     textArea.value = currentValue + key;
   } else if (!event.target.classList.contains('literal')) {
-    button = document.getElementById(idElem);
-    const key = button.value;
-    const currentValue = textArea.value;
-    textArea.value = currentValue + key;
+    if (idElem) {
+      button = document.getElementById(idElem);
+      const key = button.value;
+      const currentValue = textArea.value;
+      textArea.value = currentValue + key;
+    }
   }
 });
 
 document.body.addEventListener('click', (event) => {
-  const idElem = event.target.id;
+  let idElem;
+  if (event.target.id) {
+    idElem = event.target.id;
+  }
   const button = document.getElementById(idElem);
-  if (button.id === 'id_8') {
+  if (button && button.id === 'id_8' && button.id) {
     const currentValue = textArea.value;
     textArea.value = currentValue.slice(0, currentValue.length - 1);
   }
@@ -449,29 +484,34 @@ document.body.addEventListener('click', (event) => {
 document.body.addEventListener('keydown', (event) => {
   const key = event.which;
   const idNum = `id_${key}`;
-  const elem = document.getElementById(idNum);
-  if (elem.id === 'id_20') {
-    state.capsLock = true;
-    state.upperCase = (state.upperCase + 1) % 2;
-    const arrLiteral = Array.from(document.getElementsByClassName('literal'));
-    arrLiteral.forEach((e, i) => {
-      e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-      e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-    });
+  let elem;
+  if (document.getElementById(idNum)) {
+    elem = document.getElementById(idNum);
+    if (elem.id === 'id_20' && elem.id && elem) {
+      state.capsLock = true;
+      state.upperCase = (state.upperCase + 1) % 2;
+      const arrLiteral = Array.from(document.getElementsByClassName('literal'));
+      arrLiteral.forEach((e, i) => {
+        e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+        e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+      });
+    }
   }
 });
 
 divKeyboard.addEventListener('mouseup', (event) => {
-  const idElem = event.target.id;
-  const button = document.getElementById(idElem);
-  if (button.id === 'id_20') {
-    state.capsLock = true;
-    state.upperCase = (state.upperCase + 1) % 2;
-    const arrLiteral = Array.from(document.getElementsByClassName('literal'));
-    arrLiteral.forEach((e, i) => {
-      e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-      e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
-    });
+  if (event.target.id) {
+    const idElem = event.target.id;
+    const button = document.getElementById(idElem);
+    if (button.id === 'id_20' && button.id && button) {
+      state.capsLock = true;
+      state.upperCase = (state.upperCase + 1) % 2;
+      const arrLiteral = Array.from(document.getElementsByClassName('literal'));
+      arrLiteral.forEach((e, i) => {
+        e.textContent = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+        e.value = arrLiteralObject[i].arrEventKeys[state.language * 2 + state.upperCase];
+      });
+    }
   }
 });
 
