@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+}
+
+.wrapper {
+  width: 1080px;
+  height: 752px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper .text_window {
+  width: 860px;
+  height: 350px;
+  border: 1px solid gray;
+}
+
+.wrapper .keyboard_window {
+  width: 860px;
+  height: 350px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.wrapper .keyboard_window .row_e, .wrapper .keyboard_window .row_d, .wrapper .keyboard_window .row_c, .wrapper .keyboard_window .row_b, .wrapper .keyboard_window .row_a {
+  width: 860px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.wrapper .keyboard_window .row_e button, .wrapper .keyboard_window .row_e button:active, .wrapper .keyboard_window .row_e button:focus, .wrapper .keyboard_window .row_d button, .wrapper .keyboard_window .row_d button:active, .wrapper .keyboard_window .row_d button:focus, .wrapper .keyboard_window .row_c button, .wrapper .keyboard_window .row_c button:active, .wrapper .keyboard_window .row_c button:focus, .wrapper .keyboard_window .row_b button, .wrapper .keyboard_window .row_b button:active, .wrapper .keyboard_window .row_b button:focus, .wrapper .keyboard_window .row_a button, .wrapper .keyboard_window .row_a button:active, .wrapper .keyboard_window .row_a button:focus {
+  outline: none;
+}
+
+.wrapper .keyboard_window .row_e .literal, .wrapper .keyboard_window .row_e #id_8 {
+  height: 50px;
+  width: 50px;
+  background: lightslategrey;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+}
+
+.wrapper .keyboard_window .row_e #id_8 {
+  width: 100px;
+}
+
+.wrapper .keyboard_window .row_d .literal, .wrapper .keyboard_window .row_d #id_9, .wrapper .keyboard_window .row_d #id_46 {
+  height: 50px;
+  width: 50px;
+  background: lightslategrey;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+}
+
+.wrapper .keyboard_window .row_d #id_9 {
+  width: 75px;
+}
+
+.wrapper .keyboard_window .row_c .literal, .wrapper .keyboard_window .row_c #id_20, .wrapper .keyboard_window .row_c #id_13 {
+  height: 50px;
+  width: 50px;
+  background: lightslategrey;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+}
+
+.wrapper .keyboard_window .row_c #id_20, .wrapper .keyboard_window .row_c #id_13 {
+  width: 100px;
+}
+
+.wrapper .keyboard_window .row_b .literal, .wrapper .keyboard_window .row_b #id_16, .wrapper .keyboard_window .row_b #id_38, .wrapper .keyboard_window .row_b #id_16_right {
+  height: 50px;
+  width: 50px;
+  background: lightslategrey;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+}
+
+.wrapper .keyboard_window .row_b #id_16, .wrapper .keyboard_window .row_b #id_16_right {
+  width: 100px;
+}
+
+.wrapper .keyboard_window .row_a #id_17, .wrapper .keyboard_window .row_a #id_91, .wrapper .keyboard_window .row_a #id_18, .wrapper .keyboard_window .row_a #id_32, .wrapper .keyboard_window .row_a #id_18_right, .wrapper .keyboard_window .row_a #id_37, .wrapper .keyboard_window .row_a #id_39, .wrapper .keyboard_window .row_a #id_40, .wrapper .keyboard_window .row_a #id_17_right {
+  height: 50px;
+  width: 50px;
+  background: lightslategrey;
+  border-radius: 10%;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+}
+
+.wrapper .keyboard_window .row_a #id_32 {
+  width: 420px;
+  border-radius: 4%;
+}
+/*# sourceMappingURL=style.css.map */
